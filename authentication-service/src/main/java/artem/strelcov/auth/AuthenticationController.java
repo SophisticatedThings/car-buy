@@ -1,13 +1,14 @@
 package artem.strelcov.auth;
 
+import artem.strelcov.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 @RestController
@@ -16,18 +17,26 @@ import java.io.IOException;
 public class AuthenticationController {
 
     private final AuthenticationService service;
-
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
-    ) {
-        return ResponseEntity.ok(service.register(request));
+    @GetMapping
+    public ModelAndView getLoginPage(Model model){
+        model.addAttribute("user", new User());
+        return new ModelAndView("login");
+    }
+    @GetMapping("/register")
+    public ModelAndView getRegisterPage(Model model){
+        model.addAttribute("user", new User());
+        return new ModelAndView("register");
+    }
+    @PostMapping("/process_register")
+    public ModelAndView register(User user) {
+        RegisterRequest request = new RegisterRequest(user);
+        service.register(request);
+        return new ModelAndView("redirect:/api/v1/auth");
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
-    ) {
-        return ResponseEntity.ok(service.authenticate(request));
+    public ResponseEntity<AuthenticationResponse> authenticate(User user) {
+        AuthenticationRequest request = new AuthenticationRequest(user);
+        service.authenticate(request);
     }
 }

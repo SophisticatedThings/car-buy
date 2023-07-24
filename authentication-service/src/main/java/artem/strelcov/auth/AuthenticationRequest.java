@@ -1,5 +1,6 @@
 package artem.strelcov.auth;
 
+import artem.strelcov.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,4 +13,13 @@ public class AuthenticationRequest {
 
     private String email;
     private String password;
+    private String firstname;
+    private String lastname;
+
+    public AuthenticationRequest(User user) {
+
+        setEmail(user.getEmail());
+        setPassword(user.getPassword());
+
+    }
 }
