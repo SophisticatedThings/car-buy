@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>authentication-service</module>
+        <module>product</module>
     </modules>
 
     <properties>

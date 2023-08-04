@@ -1,7 +1,6 @@
 package artem.strelcov.auth;
 
-import artem.strelcov.user.Role;
-import artem.strelcov.user.User;
+import artem.strelcov.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
