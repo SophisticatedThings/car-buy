@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>CarRent</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+    body{
+      font-family: 'Montserrat', sans-serif;
+    }
+    .div1 {
+      background-image: url(https://wallpapershome.com/images/wallpapers/ferrari-gtc4lusso-3840x2160-geneva-international-motor-show-2016-8601.jpeg);
+      background-position: center;
+      background-size: cover;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+    }
+    .container {
+        padding: 16px;
+
+    }
+    p{
+        width: 200%;
+    }
+    .form{
+        position: relative;
+        background: none;
+    }
+    .div3 {
+        padding-top: 10%;
+    }
+    a {
+        color: #868686;
+    }
+    h2 {
+        text-align: center;
+    }
+    .date {
+        width:360px;
+        opacity: 0.9;
+        border: 2px solid black;
+        border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+<div class="div1" >
+
+</div>
+<div>
+</div>
+<div class="div3">
+    <form class="form" method="post" action="/process_login"
+          style="max-width: 400px; margin: 0 auto"  >
+        <h2>Давайте подберем Вам автомобиль. Для этого просто укажите день, в который Вы хотите арендовать автомобиль, а мы подберем подходящие варианты</h2>
+        <div class="container">
+            <p>
+                <input class="date" type="date" id="date" name="date" />
+            </p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

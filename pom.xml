@@ -14,8 +14,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>authentication-service</module>
-        <module>product</module>
+        <module>frontend-service</module>
+        <module>product-service</module>
     </modules>
 
     <properties>
