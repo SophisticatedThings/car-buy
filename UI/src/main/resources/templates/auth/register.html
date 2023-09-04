@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+        body{
+            font-family: 'Montserrat', sans-serif;
+        }
+        .div2 {
+            margin: 0 auto;
+            height: 95%;
+            width: 40%;
+            background-color: #f6e9e9;
+            opacity: 0.7;
+        }
+        .div1 {
+            background-image: url("https://4kwallpapers.com/images/wallpapers/lincoln-model-l100-concept-electric-cars-autonomous-car-3840x2160-8591.jpeg");
+            background-position: center;
+            background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+        }
+        .container {
+            margin-top: 20%;
+        }
+
+        /* Full-width input fields */
+        input[type=text], input[type=password], input[type=email] {
+            width: 92.5%;
+            padding: 15px;
+            margin: 8px 0;
+            display: inline-block;
+            border: none;
+            background: #edeff3;
+
+        }
+
+        input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+
+            background-color: #ddd;
+            outline: none;
+        }
+
+        .registerbtn {
+            background-color: #9b9999;
+            color: #edeff3;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 20px;
+            opacity: 1;
+        }
+        .form{
+            position: relative;
+            margin: 0 auto;
+            background: none;
+
+        }
+    </style>
+</head>
+<body>
+<div class="div1" >
+
+    <div class="div2" align="center">
+        <h1>Registration form</h1>
+    </div>
+</div>
+<form class="form" th:method="POST" th:action="@{/auth/register}" th:object="${user}" style="max-width: 400px; margin: 0 auto">
+    <div class="container">
+        <h2>Please, fill in this form to create an account</h2>
+        <label><b>Email</b></label>
+        <input type="text" placeholder="Enter Name" th:field="*{email}" id="name" required>
+
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" th:field="*{password}" id="password" required>
+
+        <label><b>First Name</b></label>
+        <input type="text" placeholder="Enter First Name" th:field="*{firstname}" id="firstname" required>
+
+        <label><b>Last Name</b></label>
+        <input type="text" placeholder="Last Name" th:field="*{lastname}" id="lastname" required>
+        <button type="submit" class="registerbtn">Register</button>
+    </div>
+</form>
+</body>
+</html>
