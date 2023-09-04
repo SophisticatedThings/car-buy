@@ -1,7 +1,7 @@
 package artem.strelcov.exceptions.UserHandling;
 
-public class UsernameNotFoundException extends RuntimeException {
-    public UsernameNotFoundException(String message) {
+public class EmailNotFoundException extends RuntimeException {
+    public EmailNotFoundException(String message) {
         super(message);
     }
 

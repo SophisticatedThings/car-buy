@@ -1,25 +1,24 @@
 package artem.strelcov.controllers;
 
-import artem.strelcov.dto.DateContainer;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-@Controller
-@RequestMapping("/application")
+import artem.strelcov.auth.AuthenticationRequest;
+import artem.strelcov.auth.AuthenticationResponse;
+import artem.strelcov.auth.RegisterRequest;
+import artem.strelcov.auth.RegisterResponse;
+import artem.strelcov.services.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
 public class ApplicationController {
-    @GetMapping
-    public String getApplicationPage(Model model) {
-        model.addAttribute("date", new DateContainer());
-        return "/app/application";
+
+    private final UserService userService;
+    @PostMapping("/registration")
+    public RegisterResponse register(@RequestBody RegisterRequest request) {
+        return userService.register(request);
     }
-    @PostMapping("/process_variants")
-    public String processVariants(@ModelAttribute("date") DateContainer dateContainer) {
-        System.out.println(dateContainer.getDate());
-        return "/app/application";
+    @PostMapping("/authentication")
+    public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request) {
+        return userService.authenticate(request);
     }
 }

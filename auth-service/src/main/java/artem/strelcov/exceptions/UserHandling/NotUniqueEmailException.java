@@ -1,7 +1,7 @@
 package artem.strelcov.exceptions.UserHandling;
 
-public class NotUniqueUsernameException extends RuntimeException{
-    public NotUniqueUsernameException(String message) {
+public class NotUniqueEmailException extends RuntimeException{
+    public NotUniqueEmailException(String message) {
         super(message);
     }
 }

@@ -10,19 +10,37 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>artem.strelcov</groupId>
-    <artifactId>car-rent</artifactId>
+    <artifactId>car-buy</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>frontend-service</module>
+        <module>auth-service</module>
         <module>product-service</module>
+        <module>UI</module>
+        <module>api-gateway</module>
+        <module>users-info-service</module>
+        <module>order-service</module>
+        <module>notification-service</module>
+        <module>scheduler-service</module>
     </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-cloud.version>2022.0.3</spring-cloud.version>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>

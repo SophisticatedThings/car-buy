@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>artem.strelcov</groupId>
-        <artifactId>car-rent</artifactId>
+        <artifactId>car-buy</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

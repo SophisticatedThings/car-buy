@@ -1,4 +1,4 @@
-package artem.strelcov.apigateway.exception_handling;
+package artem.strelcov.exceptions;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

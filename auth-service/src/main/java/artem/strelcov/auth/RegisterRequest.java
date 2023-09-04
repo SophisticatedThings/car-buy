@@ -17,10 +17,4 @@ public class RegisterRequest {
     private String email;
     private String password;
 
-    public RegisterRequest(User user){
-        setEmail(user.getEmail());
-        setPassword(user.getPassword());
-        setFirstname(user.getFirstname());
-        setLastname(user.getLastname());
-    }
 }

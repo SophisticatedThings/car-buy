@@ -28,22 +28,17 @@ public class User implements UserDetails {
     private String firstname;
     @Column(name = "lastname")
     private String lastname;
-    @Column(name = "name")
-    private String name;
     @Column(name = "email")
     private String email;
     @Column(name = "password")
     private String password;
     @Column(name = "role")
-    private String role;
-
-    public String getFullname(){
-        return firstname + " " + lastname;
-    }
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role));
+        return Collections.singleton(new SimpleGrantedAuthority(role.toString()));
     }
 
     @Override

@@ -15,12 +15,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final UserRepository userRepository;
     @Bean
     public UserDetailsService userDetailsService() {
@@ -35,7 +34,6 @@ public class SecurityConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
@@ -43,21 +41,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/auth/register","/auth/login",
-                                        "/auth/process-login").permitAll()
-                                .anyRequest().authenticated())
+                .csrf()
+                .disable()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/auth/process-login")
-                .defaultSuccessUrl("/auth/success", true)
-                .failureUrl("/auth/login?error")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/auth/login");
+                .defaultSuccessUrl("/auth/success", true);
+
         return http.build();
     }
-
     @Bean
     protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

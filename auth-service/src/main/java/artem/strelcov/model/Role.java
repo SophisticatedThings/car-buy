@@ -1,2 +1,6 @@
-package artem.strelcov.model;public enum Role {
+package artem.strelcov.model;
+
+public enum Role {
+    USER,
+    ADMIN
 }
