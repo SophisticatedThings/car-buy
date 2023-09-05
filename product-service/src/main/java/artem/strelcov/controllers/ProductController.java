@@ -1,12 +1,15 @@
 package artem.strelcov.controllers;
 
+import artem.strelcov.dto.ProductRequest;
 import artem.strelcov.dto.ProductResponse;
 import artem.strelcov.model.Product;
-import artem.strelcov.services.ProductService;
+import artem.strelcov.services.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,26 +18,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductServiceImpl productServiceImpl;
     @GetMapping
     public List<ProductResponse> getAllProducts(){
-
-        return productService.getAllProducts();
+        return productServiceImpl.getAllProducts();
     }
     @PostMapping
-    public ResponseEntity<Product> addProduct(@RequestBody Product product){
-        productService.addProduct(product);
+    public ResponseEntity<Product> addProduct(
+            Authentication authentication,
+            @RequestParam(value = "image") MultipartFile image,
+            @RequestPart(value = "product") ProductRequest productRequest){
+        productServiceImpl.addProduct(authentication,image, productRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @PutMapping
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-        productService.updateProduct(product);
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(
+            Authentication authentication,
+            @PathVariable("id") String id,
+            @RequestBody ProductRequest productRequest) {
+        productServiceImpl.updateProduct(authentication,id,productRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-    @GetMapping("/{model}")
-    public ResponseEntity<Product> getProductByModel(@PathVariable String model) {
-        return ResponseEntity.ok(productService.getProductByModel(model));
+    @GetMapping("/{brand}")
+    public ResponseEntity<Product> getProductByBrand(@PathVariable String brand) {
+        return ResponseEntity.ok(productServiceImpl.getProductByBrand(brand));
     }
 
 

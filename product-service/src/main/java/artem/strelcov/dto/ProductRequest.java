@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductResponse {
-
+public class ProductRequest {
     private String brand;
     private String model;
     private Integer prize;
@@ -18,5 +17,4 @@ public class ProductResponse {
     private String gearBox;
     private String typeOfEngine;
     private Integer amountOfSeats;
-    private String imageUrl;
 }
