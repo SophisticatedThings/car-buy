@@ -7,14 +7,17 @@ import artem.strelcov.auth.RegisterResponse;
 import artem.strelcov.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class ApplicationController {
+public class AuthenticationController {
 
     private final UserService userService;
     @PostMapping("/registration")
-    public RegisterResponse register(@RequestBody RegisterRequest request) {
+    public RegisterResponse register(
+            @RequestBody RegisterRequest request) {
         return userService.register(request);
     }
     @PostMapping("/authentication")
