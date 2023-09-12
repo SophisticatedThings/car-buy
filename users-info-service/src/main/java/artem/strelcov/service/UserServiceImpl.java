@@ -9,6 +9,7 @@ import io.minio.errors.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedInputStream;
@@ -19,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
@@ -28,7 +30,6 @@ public class UserServiceImpl implements UserService{
 
         User user = User.builder()
                 .email(userDto.getEmail())
-                .username(userDto.getUsername())
                 .firstname(userDto.getFirstname())
                 .lastname(userDto.getLastname())
                 .city(userDto.getCity())
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void setPhoto(Authentication authentication, MultipartFile avatar) {
-        User user = userRepository.findUserByUsername(authentication.getName());
+        User user = userRepository.findUserByEmail(authentication.getName());
         addImageToMinioAndUser(avatar, user);
     }
 

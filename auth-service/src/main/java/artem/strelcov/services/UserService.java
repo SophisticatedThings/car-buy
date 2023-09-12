@@ -10,6 +10,7 @@ import artem.strelcov.exceptions.UserHandling.NotUniqueEmailException;
 import artem.strelcov.model.Role;
 import artem.strelcov.model.User;
 import artem.strelcov.repositories.UserRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
@@ -44,7 +45,6 @@ public class UserService {
 
         UserDto userDto = UserDto.builder()
                 .email(request.getEmail())
-                .username(request.getUsername())
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .city(request.getCity())
@@ -75,13 +75,14 @@ public class UserService {
                 .responseMessage("Регистрация прошла успешно, теперь Вы можете залогиниться")
                 .build();
     }
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request, HttpServletResponse response) {
         Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
         if(optionalUser.isEmpty()) {
             throw new EmailNotFoundException("Указанный Вами email не существует");
         }
         User user = optionalUser.get();
         String token = jwtService.generateToken(user);
+        response.setHeader("Authorization", "Bearer " + token);
         return AuthenticationResponse.builder()
                 .token(token)
                 .build();

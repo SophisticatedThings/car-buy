@@ -20,6 +20,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -112,5 +113,15 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByBrand(brand)
                 .orElseThrow(() -> new RuntimeException(
                         String.format("Не удаётся найти данный бренд - %s", brand)));
+    }
+
+    @Override
+    public String getOwnerEmailByCarId(String carId) {
+        Optional<Product> optionalCar = productRepository.getProductById(carId);
+        if(optionalCar.isEmpty()) {
+            throw new RuntimeException("Такого автомобиля не существует");
+        }
+        Product car = optionalCar.get();
+        return car.getOwner();
     }
 }

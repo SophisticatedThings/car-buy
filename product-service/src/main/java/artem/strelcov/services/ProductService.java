@@ -17,4 +17,6 @@ public interface ProductService {
                               String id,
                               ProductRequest productRequest);
     public Product getProductByBrand(String brand);
+
+    String getOwnerEmailByCarId(String carId);
 }

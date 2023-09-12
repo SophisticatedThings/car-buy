@@ -6,16 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class UserDto {
-
-    private String email;
-    private String firstname;
-    private String lastname;
-    private String city;
-    private LocalDateTime registeredAt;
-    private Integer rating;
+public class OrderDto {
+    private Integer orderId;
+    private String buyerEmail;
+    private String ownerEmail;
+    private LocalDateTime date;
+    private String carId;
+    private String token;
 }
