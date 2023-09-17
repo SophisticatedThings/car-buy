@@ -27,5 +27,9 @@ public class OrderController {
     public void declineOrder(@PathVariable(value = "order-id") Integer orderId) {
         orderService.declineOrder(orderId);
     }
+    @DeleteMapping
+    public void deleteOrdersWhereIsConfirmedNotNull() {
+        orderService.deleteOrdersWhereIsConfirmedNotNull();
+    }
 
 }

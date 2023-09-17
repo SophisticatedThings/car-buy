@@ -12,4 +12,6 @@ public interface OrderService {
     void confirmOrder(Integer orderId);
 
     void declineOrder(Integer orderId);
+
+    void deleteOrdersWhereIsConfirmedNotNull();
 }

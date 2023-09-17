@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -75,14 +76,13 @@ public class UserService {
                 .responseMessage("Регистрация прошла успешно, теперь Вы можете залогиниться")
                 .build();
     }
-    public AuthenticationResponse authenticate(AuthenticationRequest request, HttpServletResponse response) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
         if(optionalUser.isEmpty()) {
             throw new EmailNotFoundException("Указанный Вами email не существует");
         }
         User user = optionalUser.get();
         String token = jwtService.generateToken(user);
-        response.setHeader("Authorization", "Bearer " + token);
         return AuthenticationResponse.builder()
                 .token(token)
                 .build();

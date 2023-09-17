@@ -12,6 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    @GetMapping("/{email}")
+    public UserDto getUserByEmail(@PathVariable("email")String email) {
+        return userService.getUserByEmail(email);
+    }
     @PostMapping()
     public void addUser(@RequestBody UserDto userDto) {
         userService.addUser(userDto);

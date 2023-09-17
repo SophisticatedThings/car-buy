@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import org.springframework.web.multipart.MultipartFile;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductResponse {
-    private String id;
+public class ProductDto {
     private String brand;
     private String model;
     private Integer prize;
@@ -19,5 +18,4 @@ public class ProductResponse {
     private String typeOfEngine;
     private Integer amountOfSeats;
     private String imageUrl;
-    private String owner;
 }

@@ -46,6 +46,19 @@ public class UserServiceImpl implements UserService{
         addImageToMinioAndUser(avatar, user);
     }
 
+    @Override
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.findUserByEmail(email);
+        return UserDto.builder()
+                .email(user.getEmail())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .city(user.getCity())
+                .rating(user.getRating())
+                .registeredAt(user.getRegisteredAt())
+                .build();
+    }
+
     private void addImageToMinioAndUser(MultipartFile avatar, User user) {
         String imageName = generateImageName(avatar);
         try (InputStream inputStream =

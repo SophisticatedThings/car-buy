@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>User-info</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+    body{
+      font-family: 'Montserrat', sans-serif;
+      background-color: white;
+    }
+    div {
+      background-color: white;
+      background-position: center;
+      background-size: cover;
+      position: absolute;
+      font-weight: bold;
+      text-align: center;
+      margin: 0 auto;
+      opacity: 1;
+      top: 20%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    h1 {
+      text-align: center;
+    }
+    h2 {
+      text-align: center;
+      display: inline;
+    }
+  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:object="${user}">
+  <h1>Подробная информация о пользователе</h1>
+  <h2>Электронная почта:</h2>
+  <h2 th:text="${user.getEmail()}"></h2>
+  <br>
+  <h2>Имя:</h2>
+  <h2 th:text="${user.getFirstname()}"></h2>
+  <br>
+  <h2>Фамилия:</h2>
+  <h2 th:text="${user.getLastname()}"></h2>
+  <br>
+  <h2>Город:</h2>
+  <h2 th:text="${user.getCity()}"></h2>
+  <br>
+  <h2>Дата регистрации:</h2>
+  <h2 th:text="${user.getRegisteredAt()}"></h2>
+  <br>
+  <h2>Рейтинг:</h2>
+  <h2 th:text="${user.getRating()}"></h2>
+</div>
+</body>
+</html>

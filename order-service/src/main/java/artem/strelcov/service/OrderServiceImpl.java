@@ -72,4 +72,9 @@ public class OrderServiceImpl implements OrderService{
         order.setIsConfirmed(false);
         orderRepository.save(order);
     }
+
+    @Override
+    public void deleteOrdersWhereIsConfirmedNotNull() {
+        orderRepository.deleteOrdersByIsConfirmedIsNotNull();
+    }
 }

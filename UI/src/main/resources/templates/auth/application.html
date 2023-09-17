@@ -67,12 +67,12 @@
 <div>
 </div>
 <div class="div3">
-    <form class="form" method="post" th:action="@{/application/process_variants}" th:object="${date}"
+    <form class="form" method="get" th:action="@{/app/products}"
           style="max-width: 400px; margin: 0 auto"  >
         <h2>Давайте подберем Вам автомобиль. Для этого просто укажите день, в который Вы хотите арендовать автомобиль, а мы подберем подходящие варианты</h2>
         <div class="container">
             <p>
-                <input class="date" type="date" id="date" name="date" th:field="*{date}" />
+
             </p>
             <button class="button" type="submit">Посмотреть варианты</button>
         </div>

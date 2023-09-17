@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Products</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+    body{
+      font-family: 'Montserrat', sans-serif;
+      background-color: #e5dede;
+    }
+    div {
+      background-color: #e5dede;
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      opacity: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .btn {
+      display: inline-block; /* Строчно-блочный элемент */
+      background: #8C959D; /* Серый цвет фона */
+      color: black; /* Белый цвет текста */
+      padding: 1rem 1.5rem; /* Поля вокруг текста */
+      text-decoration: none; /* Убираем подчёркивание */
+      border-radius: 3px; /* Скругляем уголки */
+    }
+    h1 {
+      text-align: center;
+    }
+    table {
+      border-spacing: 0 10px;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: bold;
+      margin: 0 auto;
+    }
+    th {
+      padding: 10px 20px;
+      background: #efe3e3;
+      color: black;
+      border-right: 2px solid;
+      font-size: 0.9em;
+    }
+    th:first-child {
+      text-align: left;
+    }
+    th:last-child {
+      border-right: none;
+    }
+    td {
+      vertical-align: middle;
+      color: black;
+      padding: 10px;
+      font-size: 14px;
+      text-align: center;
+      border-top: 2px solid #56433D;
+      border-bottom: 2px solid #56433D;
+      border-right: 2px solid #56433D;
+    }
+    td:first-child {
+      border-left: 2px solid #56433D;
+      border-right: none;
+    }
+    td:nth-child(2){
+      text-align: left;
+    }
+    td a {
+      display: block; /* Блочная ссылка */
+      color: black;
+      padding: 5px; /* Поля вокруг текста */
+    }
+  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div>
+  <h1>Доступные для покупки автомобили</h1>
+<table>
+  <tr>
+    <th>Изображение</th>
+    <th>Бренд</th>
+    <th>Модель</th>
+    <th>Цена</th>
+    <th>Тип привода</th>
+    <th>Тип двигателя</th>
+    <th>Коробка передач</th>
+    <th>Количество сидений</th>
+    <th>Владелец(кликабельно)</th>
+    <th>Купить</th>
+  </tr>
+  <tr th:each="product : ${products}">
+    <td><img th:src="@{'/app/display/image/' + ${product.imageUrl}} " width="220" height="200"></td>
+    <td th:text="${product.getBrand()}"></td>
+    <td th:text="${product.getModel()}"></td>
+    <td th:text="${product.getPrize()}"></td>
+    <td th:text="${product.getDriveType()}"></td>
+    <td th:text="${product.getTypeOfEngine()}"></td>
+    <td th:text="${product.getGearBox()}"></td>
+    <td th:text="${product.getAmountOfSeats()}"></td>
+    <td><a th:href="@{'/app/users/' + ${product.getOwner()}}" th:text="${product.getOwner()}"></a></td>
+    <td><a th:href="@{'/app/products/' + ${product.getId()}}" th:text="Подтвердить"></a></td>
+  </tr>
+</table>
+</div>
+</body>
+</html>

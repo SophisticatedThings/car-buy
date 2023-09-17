@@ -1,9 +1,12 @@
 package artem.strelcov.services;
 
+import artem.strelcov.dto.ProductDto;
 import artem.strelcov.dto.ProductRequest;
 import artem.strelcov.dto.ProductResponse;
 import artem.strelcov.model.Product;
 import artem.strelcov.repositories.ProductRepository;
+import io.minio.DownloadObjectArgs;
+import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.errors.*;
@@ -34,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll().stream()
                 .map(product ->
                         ProductResponse.builder()
+                                .id(product.getId())
                                 .brand(product.getBrand())
                                 .model(product.getModel())
                                 .amountOfSeats(product.getAmountOfSeats())
@@ -42,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
                                 .gearBox(product.getGearBox())
                                 .typeOfEngine(product.getTypeOfEngine())
                                 .imageUrl(product.getImageUrl())
+                                .owner(product.getOwner())
                                 .build()
                 ).toList();
     }
@@ -60,6 +65,36 @@ public class ProductServiceImpl implements ProductService {
                 .build();
         addImageToMinioAndProduct(image, product);
         productRepository.insert(product);
+    }
+
+    @Override
+    public byte[] getImage(String imageUrl) {
+        try (InputStream stream = minioClient.getObject(
+                GetObjectArgs.builder()
+                        .bucket("cars")
+                        .object(imageUrl)
+                        .build())) {
+            byte [] image = stream.readAllBytes();
+            return image;
+        } catch (ServerException e) {
+            throw new RuntimeException(e);
+        } catch (InsufficientDataException e) {
+            throw new RuntimeException(e);
+        } catch (ErrorResponseException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidResponseException e) {
+            throw new RuntimeException(e);
+        } catch (XmlParserException e) {
+            throw new RuntimeException(e);
+        } catch (InternalException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void addImageToMinioAndProduct(MultipartFile image, Product product) {
@@ -109,6 +144,16 @@ public class ProductServiceImpl implements ProductService {
 
         productRepository.save(savedProduct);
     }
+
+    @Override
+    public void deleteProductById(Authentication authentication, String id) {
+        Optional<Product> product = productRepository.getProductById(id);
+        if(!product.get().getOwner().equals(authentication.getName())) {
+            throw new RuntimeException("Вы не являетесь владельцем автомобиля");
+        }
+        productRepository.deleteProductById(id);
+    }
+
     public Product getProductByBrand(String brand) {
         return productRepository.findByBrand(brand)
                 .orElseThrow(() -> new RuntimeException(
@@ -123,5 +168,27 @@ public class ProductServiceImpl implements ProductService {
         }
         Product car = optionalCar.get();
         return car.getOwner();
+    }
+
+    @Override
+    public void deleteProductsWhereIsConfirmedNotNull() {
+        productRepository.deleteProductsByIsConfirmedNotNull();
+    }
+
+    @Override
+    public ProductResponse getProduct(String id) {
+        Product product = productRepository.getProductById(id).get();
+        return ProductResponse.builder()
+                .id(product.getId())
+                .brand(product.getBrand())
+                .model(product.getModel())
+                .amountOfSeats(product.getAmountOfSeats())
+                .driveType(product.getDriveType())
+                .prize(product.getPrize())
+                .gearBox(product.getGearBox())
+                .typeOfEngine(product.getTypeOfEngine())
+                .imageUrl(product.getImageUrl())
+                .owner(product.getOwner())
+                .build();
     }
 }

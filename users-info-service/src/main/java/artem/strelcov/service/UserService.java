@@ -9,4 +9,5 @@ public interface UserService {
 
     void setPhoto(Authentication authentication, MultipartFile avatar);
 
+    UserDto getUserByEmail(String email);
 }

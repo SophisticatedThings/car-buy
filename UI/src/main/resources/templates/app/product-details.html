@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Products</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+    body{
+      font-family: 'Montserrat', sans-serif;
+    }
+    h1 {
+      text-align: center;
+    }
+    .div1 {
+      position:absolute;
+      left: 30%;
+      background-color: #8C959D;
+      border-radius: 5px;
+      opacity: 0.9;
+    }
+    .div2 {
+      position:absolute;
+      right: 10%;
+      background-color: #d52323;
+    }
+    .div3 {
+      background-image: url("https://4kwallpapers.com/images/wallpapers/lamborghini-reventon-jet-fighter-3840x2569-73.jpg");
+      background-position: center;
+      background-size: cover;
+      position: fixed;
+      opacity: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="div3">
+  <div class="div1" th:object="${product}">
+    <h2 th:text="${product.getBrand()}">eqwrq</h2>
+    <h2 th:text="${product.getModel()}">eqwq</h2>
+    <h2 th:text="${product.getPrize()}">eqwtq</h2>
+    <h2 th:text="${product.getDriveType()}"></h2>
+    <h2 th:text="${product.getTypeOfEngine()}"></h2>
+    <h2 th:text="${product.getGearBox()}"></h2>
+    <h2 th:text="${product.getAmountOfSeats()}"></h2>
+  </div>
+<div class="div2">
+  <h2 th:text="${product.getTypeOfEngine()}"></h2>
+</div>
+</div>
+</body>
+</html>

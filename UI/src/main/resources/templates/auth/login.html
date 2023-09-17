@@ -24,6 +24,7 @@
             background-position: center;
             background-size: cover;
             position: fixed;
+            opacity: 0.9;
             top: 0;
             left: 0;
             width: 100%;
@@ -110,7 +111,7 @@
     </div>
 </div>
 <div class="div3">
-    <form class="form" method="post" th:action="@{/auth/process-login}" th:object="${authenticationRequest}"
+    <form class="form" method="post" th:action="@{/app/authentication}" th:object="${authenticationRequest}"
           style="max-width: 400px; margin: 0 auto"  >
         <h2 class="login">CarRent</h2>
         <div class="container">
@@ -122,7 +123,7 @@
             <input type="password" name="password" th:field="*{password}" id="password"/>
 
             <button class="button" type="submit">Войти</button>
-            <h2 class="sign-up">Нет аккаунта? <a th:href="@{/auth/register}"> Регистрация </a></h2>
+            <h2 class="sign-up">Нет аккаунта? <a th:href="@{/app/register}"> Регистрация </a></h2>
             <div th:if="${param.error}" class="wrong-credentials">
                 <strong>Неправильные имя или пароль</strong>
             </div>

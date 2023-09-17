@@ -36,4 +36,6 @@ public class Product {
     private Integer amountOfSeats;
     @Field(name = "imageUrl")
     private String imageUrl;
+    @Field(name = "isConfirmed")
+    private Boolean isConfirmed;
 }
